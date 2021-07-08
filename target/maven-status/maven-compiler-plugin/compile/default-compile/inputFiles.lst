@@ -1,0 +1,10 @@
+D:\Java\REST\src\main\java\com\swvalerian\restapi\controller\UsersServlets.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\controller\ErrorDemoServlets.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\repository\hibernate\HibernateSessionInit.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\model\File.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\model\User.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\controller\FileServlets.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\repository\hibernate\FileRepository.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\model\Event.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\controller\EventsServlets.java
+D:\Java\REST\src\main\java\com\swvalerian\restapi\repository\GenericRepository.java

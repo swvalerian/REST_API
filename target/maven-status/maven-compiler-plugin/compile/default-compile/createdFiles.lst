@@ -1,0 +1,10 @@
+com\swvalerian\restapi\repository\GenericRepository.class
+com\swvalerian\restapi\controller\FileServlets.class
+com\swvalerian\restapi\controller\EventsServlets.class
+com\swvalerian\restapi\repository\hibernate\FileRepository.class
+com\swvalerian\restapi\repository\hibernate\HibernateSessionInit.class
+com\swvalerian\restapi\model\File.class
+com\swvalerian\restapi\controller\ErrorDemoServlets.class
+com\swvalerian\restapi\model\Event.class
+com\swvalerian\restapi\controller\UsersServlets.class
+com\swvalerian\restapi\model\User.class

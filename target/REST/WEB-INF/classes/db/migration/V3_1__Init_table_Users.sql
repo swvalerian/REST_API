@@ -1,0 +1,11 @@
+INSERT INTO Users (User_Id, Event_name, File_Id) values(1,'create',1);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(1,'update',1);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(2,'create',2);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(2,'update',2);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(2,'delete',2);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(3,'create',3);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(3,'delete',3);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(4,'create',4);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(5,'create',5);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(6,'create',6);
+INSERT INTO Users (User_Id, Event_name, File_Id) values(6,'delete',6);
