@@ -13,6 +13,11 @@ public class File {
     @Column(name = "ref")
     private String reference;
 
+//    @OneToOne (mappedBy = "file")
+    @OneToOne(cascade = CascadeType.DETACH) // чтоб не удалялись
+    @JoinColumn(name="id")
+    private Event event;
+
     public File() {
     }
 
@@ -42,6 +47,6 @@ public class File {
         return "\nFile{" +
                 "id=" + id +
                 ", reference='" + reference + '\'' +
-                '}';
+                '}' + "\n";
     }
 }

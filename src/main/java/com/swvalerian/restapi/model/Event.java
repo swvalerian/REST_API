@@ -1,53 +1,82 @@
 package com.swvalerian.restapi.model;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name="Events")
 public class Event {
-    private Integer fileId;
-    private String create;
-    private String update;
-    private String delete;
-    File file;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "event_id")
+    private Integer eventId;
+
+    @Column(name = "created")
+    private LocalDateTime created;
+    @Column(name = "updated")
+    private LocalDateTime updated;
+    @Column(name = "deleted")
+    private LocalDateTime deleted;
+
+//    @OneToOne(cascade = CascadeType.DETACH) // при таком ключе, поле из внешней таблицы не удаляется
+//    @JoinColumn(name="id")
+//    private File file;
+    @OneToOne(mappedBy = "event")
+    private File file;
 
     public Event() {
     }
 
-    public Event(Integer fileId, String create, String update, String delete, File file) {
-        this.fileId = fileId;
-        this.create = create;
-        this.update = update;
-        this.delete = delete;
+    public Event(Integer eventId, LocalDateTime created, LocalDateTime updated, LocalDateTime deleted, File file) {
+        this.eventId = eventId;
+        this.created = created;
+        this.updated = updated;
+        this.deleted = deleted;
         this.file = file;
     }
 
-    public Integer getFileId() {
-        return fileId;
+    @Override
+    public String toString() {
+        return "\nEvent{" +
+                "\neventId=" + eventId +
+                "\n, created=" + created +
+                "\n, updated=" + updated +
+                "\n, deleted=" + deleted +
+                "\n, file=" + file +
+                '}' +"\n";
     }
 
-    public void setFileId(Integer fileId) {
-        this.fileId = fileId;
+    public Integer getEventId() {
+        return eventId;
     }
 
-    public String getCreate() {
-        return create;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
 
-    public void setCreate(String create) {
-        this.create = create;
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public String getUpdate() {
-        return update;
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
-    public void setUpdate(String update) {
-        this.update = update;
+    public LocalDateTime getUpdated() {
+        return updated;
     }
 
-    public String getDelete() {
-        return delete;
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
     }
 
-    public void setDelete(String delete) {
-        this.delete = delete;
+    public LocalDateTime getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(LocalDateTime deleted) {
+        this.deleted = deleted;
     }
 
     public File getFile() {
@@ -57,15 +86,5 @@ public class Event {
     public void setFile(File file) {
         this.file = file;
     }
-
-    @Override
-    public String toString() {
-        return "\nEvent{" +
-                "fileId=" + fileId +
-                ", create='" + create + '\'' +
-                ", update='" + update + '\'' +
-                ", delete='" + delete + '\'' +
-                ", file=" + file +
-                '}';
-    }
 }
+

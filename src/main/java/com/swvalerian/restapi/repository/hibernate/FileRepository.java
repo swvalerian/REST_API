@@ -10,7 +10,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class FileRepository implements GenericRepository {
+public class FileRepository implements GenericRepository<File, Integer> {
     SessionFactory sessionFactory = HibernateSessionInit.getSessionFactory();
 
     @Override
@@ -29,22 +29,43 @@ public class FileRepository implements GenericRepository {
     }
 
     @Override
-    public Object getId(Object o) {
-        return null;
+    public File getId(Integer id) {
+        return getAll().stream().filter(f -> f.getId().equals(id)).findFirst().orElse(null);
     }
 
     @Override
-    public List update(Object o) {
-        return null;
+    public File save(File file) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Integer id = (Integer) session.save(file); // получим id вновь созданной записи
+
+        transaction.commit();
+        session.close();
+        return file;
     }
 
     @Override
-    public Object save(Object o) {
-        return null;
+    public List<File> update(File file) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(file);
+
+        transaction.commit();
+        session.close();
+        return getAll();
     }
 
     @Override
-    public void deleteById(Object o) {
+    public void deleteById(Integer id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
+        File file = session.get(File.class, id);
+        session.delete(file);
+
+        transaction.commit();
+        session.close();
     }
 }

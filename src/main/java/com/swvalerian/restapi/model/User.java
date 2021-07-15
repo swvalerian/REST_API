@@ -4,9 +4,9 @@ import java.util.List;
 
 public class User {
     private Integer userId;
-    private String eventName;
     private Integer fileId;
-    List<Event> events;
+    private String eventName;
+    List<Event> events; // OneToMany
 
     public User() {
     }
