@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Table(name="Events")
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "event_id")
     private Integer eventId;
 
@@ -19,21 +19,27 @@ public class Event {
     @Column(name = "deleted")
     private LocalDateTime deleted;
 
-//    @OneToOne(cascade = CascadeType.DETACH) // при таком ключе, поле из внешней таблицы не удаляется
-//    @JoinColumn(name="id")
-//    private File file;
-    @OneToOne(mappedBy = "event")
-    private File file;
+    @OneToOne(cascade = CascadeType.DETACH) // при таком ключе, поле из внешней таблицы не удаляется
+    @JoinColumn(name="file_id") // было id стало file_id произвольное имя или как при создании таблицы
+    private File file; // или как названо поле в сущности events?
+
+    // подсказано
+//    @ManyToOne(cascade = CascadeType.DETACH) // добавил чтобы поле из таблицы User не удалялось
+    @ManyToOne // добавил чтобы поле из таблицы User не удалялось
+    @JoinColumn(name = "user_id") // здесь указываетcя имя поля в ТАБЛИЦЕ !!!
+    private User user;
+
 
     public Event() {
     }
 
-    public Event(Integer eventId, LocalDateTime created, LocalDateTime updated, LocalDateTime deleted, File file) {
+    public Event(Integer eventId, LocalDateTime created, LocalDateTime updated, LocalDateTime deleted, File file, User user) {
         this.eventId = eventId;
         this.created = created;
         this.updated = updated;
         this.deleted = deleted;
         this.file = file;
+        this.user = user;
     }
 
     @Override
@@ -44,6 +50,7 @@ public class Event {
                 "\n, updated=" + updated +
                 "\n, deleted=" + deleted +
                 "\n, file=" + file +
+                "\n, user=" + user +
                 '}' +"\n";
     }
 

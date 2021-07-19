@@ -3,6 +3,7 @@ C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\reposit
 C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\controller\FileServlets.java
 C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\model\User.java
 C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\controller\UsersServlets.java
+C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\repository\hibernate\UserRepository.java
 C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\repository\hibernate\FileRepository.java
 C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\controller\ErrorDemoServlets.java
 C:\Users\user\IdeaProjects\REST_API\src\main\java\com\swvalerian\restapi\model\Event.java

@@ -2,8 +2,10 @@ package com.swvalerian.restapi.controller;
 
 import com.swvalerian.restapi.model.Event;
 import com.swvalerian.restapi.model.File;
+import com.swvalerian.restapi.model.User;
 import com.swvalerian.restapi.repository.hibernate.EventRepository;
 import com.swvalerian.restapi.repository.hibernate.FileRepository;
+import com.swvalerian.restapi.repository.hibernate.UserRepository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServlet;
@@ -74,15 +76,19 @@ public class EventsServlets extends HttpServlet {
 
         Integer parametrId = Integer.decode(request.getParameter("id")); // необязательно - какой файл создать - автоподставляется
         String parametrRef = request.getParameter("ref"); // имя файла обязательно
+        String parametrName = request.getParameter("name");
 
         // получаем доступ к таблице Files
         FileRepository fileRepository = new FileRepository();
         File fileSave = fileRepository.save(new File(parametrId, parametrRef));
 
+        UserRepository userRepository = new UserRepository();
+        User userSave = userRepository.save(new User(44, parametrName));
+
         // получим доступ к БД
         EventRepository eventRepository = new EventRepository();
 
-        Event eventSave = eventRepository.save(new Event(pEventId, pCreated, null, null,fileSave));
+        Event eventSave = eventRepository.save(new Event(pEventId, pCreated, null, null,fileSave, userSave));
 
         responseFromDB = eventSave.toString();
 

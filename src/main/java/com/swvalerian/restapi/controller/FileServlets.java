@@ -2,8 +2,10 @@ package com.swvalerian.restapi.controller;
 
 import com.swvalerian.restapi.model.Event;
 import com.swvalerian.restapi.model.File;
+import com.swvalerian.restapi.model.User;
 import com.swvalerian.restapi.repository.hibernate.EventRepository;
 import com.swvalerian.restapi.repository.hibernate.FileRepository;
+import com.swvalerian.restapi.repository.hibernate.UserRepository;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,27 +59,29 @@ public class FileServlets extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter printWriter = response.getWriter();
 
-        // получим доступ к БД
-        FileRepository fileRepository = new FileRepository();
-
-        // Здесь мы обрабатываем запрос типа POST и передаем в слой репозиторий. Где идет работа ХИБЕРА.
-        String requestURI = request.getRequestURI();
-        printWriter.println(requestURI);
-
+        // обработаем входные данные, для создания нового файла, и соответствующих записей в таблицы зависимостей
+        LocalDateTime createTime = LocalDateTime.now();// запишем эту инфу в таблицу Events
         Integer parametrId = Integer.decode(request.getParameter("id"));
         String parametrRef = request.getParameter("ref");
-        String responseFromDB = null;
+        String parametrName = request.getParameter("name");
 
-        File fileSave = fileRepository.save(new File(parametrId, parametrRef));
+        // прежде чем создать новое событие, сделаем записи в таблицы, где содержатсья внешние ключи
+        // прежде всего сам файл
+        FileRepository fileRepository = new FileRepository();
+        File fileSave = fileRepository.save(new File(parametrId, parametrRef));// это неработает
+//        File fileSave = new File(parametrId, parametrRef);// а так должно сработать
 
-        LocalDateTime getTime = LocalDateTime.now();// запишем эту инфу в таблицу Events
+        // далее, кто этот файл создал
+        UserRepository userRepository = new UserRepository();
+        User userSave = new User(11, parametrName);
+        userRepository.save(userSave);
 
+        // ну и наконец можно создать запись логирования в таблицу Events, теперь все её связи существуют, а значит - транзакция пройдет успешно
         EventRepository eventRepository = new EventRepository();
-        Event event = eventRepository.getId(parametrId);
-        event.setCreated(getTime);
+        Event event = new Event(44,createTime, null, null, fileSave, userSave);
         eventRepository.save(event);
 
-        responseFromDB = fileSave.toString();
+        String responseFromDB = fileSave.toString();
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа
@@ -133,27 +137,21 @@ public class FileServlets extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter printWriter = response.getWriter();
 
-        // получим доступ к БД
-        FileRepository fileRepository = new FileRepository();
+        // из запроса получим id файла который следует удалить из таблицы events
+        Integer fileDeleteId = Integer.decode(request.getParameter("id"));
 
-        // Здесь мы обрабатываем запрос типа POST и передаем в слой репозиторий. Где идет работа ХИБЕРА.
-        String requestURI = request.getRequestURI();
-        printWriter.println(requestURI);
-
-        Integer parametrId = Integer.decode(request.getParameter("id"));
-        String responseFromDB;
-
-        // основной метод - удаляем ненужную запись
-        fileRepository.deleteById(parametrId);
-
-        LocalDateTime getDelete = LocalDateTime.now();// запишем эту инфу в таблицу Events
+        LocalDateTime deleteTime = LocalDateTime.now();// запишем эту инфу в таблицу Events
 
         EventRepository eventRepository = new EventRepository();
-        Event event = eventRepository.getId(parametrId);
-        event.setDeleted(getDelete);
-        eventRepository.update(event);
+        // нам необходимо из всех событий, выбрать то, что соответсвует ID указанному для удаления
+        Event event = eventRepository.getAll().stream().filter(f -> f.getFile().getId().equals(fileDeleteId)).findFirst().orElse(null);
+        //и просто пометить, что он удален
+        event.setDeleted(deleteTime);
+        //обновим информацию в БАЗЕ ДАННЫХ.
+        List<Event> eventList = eventRepository.update(event);
 
-        responseFromDB = fileRepository.getAll().toString();
+        // получим обновленное событие
+        String responseFromDB = event.toString();
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа

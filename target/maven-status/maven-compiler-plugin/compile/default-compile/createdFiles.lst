@@ -1,4 +1,5 @@
 com\swvalerian\restapi\repository\GenericRepository.class
+com\swvalerian\restapi\repository\hibernate\UserRepository.class
 com\swvalerian\restapi\repository\hibernate\EventRepository.class
 com\swvalerian\restapi\controller\FileServlets.class
 com\swvalerian\restapi\controller\EventsServlets.class

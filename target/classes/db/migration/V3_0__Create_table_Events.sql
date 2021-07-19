@@ -3,7 +3,10 @@ create table Events (
     created DATETIME,
     updated DATETIME,
     deleted DATETIME
-    ,id integer
+    ,file_id integer not null
+    ,user_id integer not null
+    ,foreign key (user_id) REFERENCES users (id)
+    ,foreign key (file_id) REFERENCES files (id)
 );
 -- ,id integer
 

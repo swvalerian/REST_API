@@ -13,10 +13,9 @@ public class File {
     @Column(name = "ref")
     private String reference;
 
-//    @OneToOne (mappedBy = "file")
-    @OneToOne(cascade = CascadeType.DETACH) // чтоб не удалялись
-    @JoinColumn(name="id")
+    @OneToOne (mappedBy = "file")
     private Event event;
+
 
     public File() {
     }

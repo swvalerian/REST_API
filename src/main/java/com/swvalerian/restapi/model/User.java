@@ -1,62 +1,62 @@
 package com.swvalerian.restapi.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "Users")
 public class User {
-    private Integer userId;
-    private Integer fileId;
-    private String eventName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "name")
+    private String name;
+
+    // подсказано
+    @OneToMany(mappedBy = "user")
     List<Event> events; // OneToMany
 
     public User() {
     }
 
-    public User(Integer userId, String eventName, Integer fileId, List<Event> events) {
-        this.userId = userId;
-        this.eventName = eventName;
-        this.fileId = fileId;
-        this.events = events;
+    public User(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+//        this.events = events;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getFileId() {
-        return fileId;
-    }
+//    public List<Event> getEvents() {
+//        return events;
+//    }
 
-    public void setFileId(Integer fileId) {
-        this.fileId = fileId;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
+//    public void setEvents(List<Event> events) {
+//        this.events = events;
+//    }
 
     @Override
     public String toString() {
         return "\nUser{" +
-                "userId=" + userId +
-                ", eventName='" + eventName + '\'' +
-                ", fileId=" + fileId +
-                ", events=" + events +
-                '}';
+                "id=" + id +
+                ", name='" + name + '\'' +
+//                ", events=" + events +
+                '}' + "\n";
     }
 }

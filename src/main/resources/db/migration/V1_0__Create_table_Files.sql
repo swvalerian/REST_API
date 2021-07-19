@@ -1,6 +1,6 @@
 create table Files (
-    Id int PRIMARY KEY Auto_increment,
-    ref varchar(100) not null
+    id int PRIMARY KEY Auto_increment,
+    ref varchar(256) not null
 );
 -- ,
 --       FOREIGN KEY (id) REFERENCES Events (id)
