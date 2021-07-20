@@ -1,19 +1,13 @@
 package com.swvalerian.restapi.controller;
 
-import com.swvalerian.restapi.model.Event;
-import com.swvalerian.restapi.model.File;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swvalerian.restapi.model.User;
-import com.swvalerian.restapi.repository.hibernate.EventRepository;
-import com.swvalerian.restapi.repository.hibernate.FileRepository;
 import com.swvalerian.restapi.repository.hibernate.UserRepository;
-import org.codehaus.jackson.map.ObjectMapper;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class UsersServlets extends HttpServlet {

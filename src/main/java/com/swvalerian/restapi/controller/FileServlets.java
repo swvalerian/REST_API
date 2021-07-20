@@ -1,13 +1,12 @@
 package com.swvalerian.restapi.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swvalerian.restapi.model.Event;
 import com.swvalerian.restapi.model.File;
 import com.swvalerian.restapi.model.User;
 import com.swvalerian.restapi.repository.hibernate.EventRepository;
 import com.swvalerian.restapi.repository.hibernate.FileRepository;
 import com.swvalerian.restapi.repository.hibernate.UserRepository;
-import org.codehaus.jackson.map.ObjectMapper;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
