@@ -16,7 +16,7 @@ public class User {
 
     // подсказано
     @OneToMany(mappedBy = "user")
-    List<Event> events; // OneToMany
+    List<Event> events; // OneToMany эта сущность ничего не знает про таблицу Events и сущность Event
 
     public User() {
     }

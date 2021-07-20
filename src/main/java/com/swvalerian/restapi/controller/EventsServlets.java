@@ -6,6 +6,7 @@ import com.swvalerian.restapi.model.User;
 import com.swvalerian.restapi.repository.hibernate.EventRepository;
 import com.swvalerian.restapi.repository.hibernate.FileRepository;
 import com.swvalerian.restapi.repository.hibernate.UserRepository;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServlet;
@@ -34,14 +35,17 @@ public class EventsServlets extends HttpServlet {
         printWriter.println("\nrequest.getPathInfo() = " + request.getPathInfo());
         // request.getPathInfo() - возвращает путь, который идет после URI указанного в webxml через mapped
 
+        //        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
+
         if (requestURI.equals("/api/v1/events") || requestURI.equals("/api/v1/events/")) {
             List<Event> eventList = eventRepository.getAll();
-            responseFromDB = eventList.toString();
+            responseFromDB = mapper.writeValueAsString(eventList);
         } else {
             String[] requestId = requestURI.split("/api/v1/events/");
             Integer fId = Integer.decode(requestId[1]);
             printWriter.println("Запросили ID = " + fId);
-            responseFromDB = eventRepository.getId(fId).toString();
+            responseFromDB = mapper.writeValueAsString(eventRepository.getId(fId));
         }
 
         String title = "HTTP simple example servlet request";
@@ -67,16 +71,13 @@ public class EventsServlets extends HttpServlet {
         printWriter.println("\nrequest.getPathInfo() = " + request.getPathInfo());
         // request.getPathInfo() - возвращает путь, который идет после URI указанного в webxml через mapped
 
-
-
-
         // самое интересное тут
         Integer pEventId = Integer.decode(request.getParameter("event_id"));// необязателно - автоподставление ключа
         LocalDateTime pCreated = LocalDateTime.now();
 
         Integer parametrId = Integer.decode(request.getParameter("id")); // необязательно - какой файл создать - автоподставляется
         String parametrRef = request.getParameter("ref"); // имя файла обязательно
-        String parametrName = request.getParameter("name");
+        String parametrName = request.getParameter("name"); // имя пользователя, которому принадлежит файл
 
         // получаем доступ к таблице Files
         FileRepository fileRepository = new FileRepository();
@@ -87,10 +88,11 @@ public class EventsServlets extends HttpServlet {
 
         // получим доступ к БД
         EventRepository eventRepository = new EventRepository();
-
         Event eventSave = eventRepository.save(new Event(pEventId, pCreated, null, null,fileSave, userSave));
 
-        responseFromDB = eventSave.toString();
+//        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
+        responseFromDB = mapper.writeValueAsString(eventSave);
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа
@@ -130,7 +132,9 @@ public class EventsServlets extends HttpServlet {
         event.setUpdated(pUpdated); // установим время изменения
         List<Event> eventList = eventRepository.update(event); // запишем сущность в БД
 
-        responseFromDB = eventList.toString();
+//        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
+        responseFromDB = mapper.writeValueAsString(eventList);
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа
@@ -148,28 +152,22 @@ public class EventsServlets extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter printWriter = response.getWriter();
 
-        // получим доступ к БД
-        EventRepository eventRepository = new EventRepository();
-
         //
         // Здесь будет реализованы: парсинг запроса и последующая проверка, что выводить
         String requestURI = request.getRequestURI();
         String responseFromDB = null;
         printWriter.println(requestURI);
         printWriter.println("\nrequest.getPathInfo() = " + request.getPathInfo());
-        // request.getPathInfo() - возвращает путь, который идет после URI указанного в webxml через mapped
 
         Integer pEventId = Integer.decode(request.getParameter("event_id"));
-        LocalDateTime pDeleted = LocalDateTime.now();
-//        Integer parametrId = Integer.decode(request.getParameter("id"));
-//        String parametrRef = request.getParameter("ref");
 
-//        FileRepository fileRepository = new FileRepository();
-//        File fileSave = fileRepository.save(new File(parametrId, parametrRef));
-
+        // получим доступ к БД
+        EventRepository eventRepository = new EventRepository();
         eventRepository.deleteById(pEventId);
 
-        responseFromDB = eventRepository.getAll().toString();
+//        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
+        responseFromDB = mapper.writeValueAsString(eventRepository.getAll());
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа

@@ -24,10 +24,10 @@ public class Event {
     private File file; // или как названо поле в сущности events?
 
     // подсказано
-//    @ManyToOne(cascade = CascadeType.DETACH) // добавил чтобы поле из таблицы User не удалялось
-    @ManyToOne // добавил чтобы поле из таблицы User не удалялось
-    @JoinColumn(name = "user_id") // здесь указываетcя имя поля в ТАБЛИЦЕ !!!
-    private User user;
+    @ManyToOne(cascade = CascadeType.DETACH) // добавил чтобы поле из таблицы User не удалялось
+    @JoinColumn(name = "user_id") // здесь указываетcя имя поля в ТАБЛИЦЕ Events!!!
+    private User user; // именно в то поле будет вставляться СУщность, т.е. все поля из сущности USER по ID примари кей USER
+    // а то что это внешняя связь = ФК - об этом есть указатели в таблице Events
 
 
     public Event() {

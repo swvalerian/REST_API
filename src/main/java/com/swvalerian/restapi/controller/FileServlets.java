@@ -6,6 +6,7 @@ import com.swvalerian.restapi.model.User;
 import com.swvalerian.restapi.repository.hibernate.EventRepository;
 import com.swvalerian.restapi.repository.hibernate.FileRepository;
 import com.swvalerian.restapi.repository.hibernate.UserRepository;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +32,18 @@ public class FileServlets extends HttpServlet {
         String responseFromDB = null;
         printWriter.println(requestURI);
         printWriter.println("\nrequest.getPathInfo() = " + request.getPathInfo());
-        // request.getPathInfo() - возвращает путь, который идет после URI указанного в webxml через mapped
+
+        //        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
 
         if (requestURI.equals("/api/v1/files") || requestURI.equals("/api/v1/files/")) {
             List<File> fileList = fileRepository.getAll();
-            responseFromDB = fileList.toString();
+            responseFromDB = mapper.writeValueAsString(fileList);
         } else {
             String[] requestId = requestURI.split("/api/v1/files/");
             Integer fId = Integer.decode(requestId[1]);
             printWriter.println("Запросили ID = " + fId);
-            responseFromDB = fileRepository.getId(fId).toString();
+            responseFromDB = mapper.writeValueAsString(fileRepository.getId(fId));
         }
 
         String title = "HTTP simple example servlet request";
@@ -81,7 +84,9 @@ public class FileServlets extends HttpServlet {
         Event event = new Event(44,createTime, null, null, fileSave, userSave);
         eventRepository.save(event);
 
-        String responseFromDB = fileSave.toString();
+//        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
+        String responseFromDB = mapper.writeValueAsString(fileSave);
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа
@@ -119,7 +124,9 @@ public class FileServlets extends HttpServlet {
         event.setUpdated(getTime);
         eventRepository.update(event);
 
-        responseFromDB = fileList.toString();
+        //        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
+        responseFromDB = mapper.writeValueAsString(fileList);
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа
@@ -150,8 +157,10 @@ public class FileServlets extends HttpServlet {
         //обновим информацию в БАЗЕ ДАННЫХ.
         List<Event> eventList = eventRepository.update(event);
 
+        //        JSON преображение
+        ObjectMapper mapper = new ObjectMapper();
         // получим обновленное событие
-        String responseFromDB = event.toString();
+        String responseFromDB = mapper.writeValueAsString(event);
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа
