@@ -1,0 +1,9 @@
+language: java
+sudo: false
+script: mvn clean verify
+flyway: false
+#services:
+#  - mysql
+#before_script:
+#      - psql -c 'create database swvalerian;' -U postgres
+#      - psql -c "CREATE USER admin WITH PASSWORD 'admin';" -U postgres
