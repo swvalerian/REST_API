@@ -24,7 +24,6 @@ public class User {
     public User(Integer id, String name) {
         this.id = id;
         this.name = name;
-//        this.events = events;
     }
 
     public Integer getId() {
@@ -43,20 +42,11 @@ public class User {
         this.name = name;
     }
 
-//    public List<Event> getEvents() {
-//        return events;
-//    }
-
-//    public void setEvents(List<Event> events) {
-//        this.events = events;
-//    }
-
     @Override
     public String toString() {
         return "\nUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-//                ", events=" + events +
                 '}' + "\n";
     }
 }
