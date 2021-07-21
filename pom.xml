@@ -107,9 +107,12 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.9.1</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/swvalerian</url>
-                    <user>root</user>
-                    <password>QWERTgfdsa1980</password>
+                    <url>eu-cdbr-west-01.cleardb.com</url>
+                    <user>b8917620d40e06</user>
+                    <password>8d267570</password>
+<!--                    <url>jdbc:mysql://localhost:3306/swvalerian</url>-->
+<!--                    <user>root</user>-->
+<!--                    <password>QWERTgfdsa1980</password>-->
                 </configuration>
             </plugin>
         </plugins>
