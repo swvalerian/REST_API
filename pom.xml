@@ -108,7 +108,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.9.1</version>
                 <configuration>
-                    <url>eu-cdbr-west-01.cleardb.com</url>
+                    <url>jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_5a16fc2bcdd68f4?reconnect=true</url>
                     <user>b8917620d40e06</user>
                     <password>8d267570</password>
 <!--                    <url>jdbc:mysql://localhost:3306/swvalerian</url>-->
@@ -128,7 +128,7 @@
                                 <artifactItem>
                                     <groupId>com.heroku</groupId>
                                     <artifactId>webapp-runner</artifactId>
-                                    <version>9.0.41.0</version>
+                                    <version>7</version>
                                     <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
