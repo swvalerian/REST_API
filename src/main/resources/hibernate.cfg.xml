@@ -5,7 +5,7 @@
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
-        <property name="connection.url">eu-cdbr-west-01.cleardb.com</property>
+        <property name="connection.url">eu-cdbr-west-01.cleardb.com:3306</property>
         <property name="connection.username">b8917620d40e06</property>
         <property name="connection.password">8d267570</property>
 <!--        <property name="connection.url">jdbc:mysql://localhost:3306/swvalerian</property>-->
