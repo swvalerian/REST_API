@@ -149,17 +149,18 @@ public class FileServlets extends HttpServlet {
         LocalDateTime deleteTime = LocalDateTime.now();// запишем эту инфу в таблицу Events
 
         EventRepository eventRepository = new EventRepository();
-        // нам необходимо из всех событий, выбрать то, что соответсвует ID указанному для удаления
+        // нам необходимо из всех событий, выбрать то, что соответствует ID указанному для удаления
         Event event = eventRepository.getAll().stream().filter(f -> f.getFile().getId().equals(fileDeleteId)).findFirst().orElse(null);
         //и просто пометить, что он удален
         event.setDeleted(deleteTime);
+        event.setFile(null);
         //обновим информацию в БАЗЕ ДАННЫХ.
         List<Event> eventList = eventRepository.update(event);
 
         //        JSON преображение
         ObjectMapper mapper = new ObjectMapper();
         // получим обновленное событие
-        String responseFromDB = mapper.writeValueAsString(event);
+        String responseFromDB = mapper.writeValueAsString(eventList);
 
         String title = "HTTP simple example servlet request";
         String contentType = "<!DOCTYPE html>\n"; // стандартный заголовок HTML документа

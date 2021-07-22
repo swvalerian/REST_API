@@ -121,11 +121,13 @@ public class EventsServlets extends HttpServlet {
 
         Integer pEventId = Integer.decode(request.getParameter("event_id"));
         LocalDateTime pUpdated = LocalDateTime.now(); // запомним дату и время обновления файла
-        Integer parametrId = Integer.decode(request.getParameter("id"));
-        String parametrRef = request.getParameter("ref");
+        Integer fileId = Integer.decode(request.getParameter("id"));
+        String fileRef = request.getParameter("ref");
 
         FileRepository fileRepository = new FileRepository();
-        fileRepository.update(new File(parametrId, parametrRef)); // таким образом мы можем даже изменить сам файл.
+        File fileUpdate = fileRepository.getId(fileId);
+        fileUpdate.setReference(fileRef);
+        fileRepository.update(fileUpdate); // таким образом мы можем даже изменить сам файл.
 
         Event event = eventRepository.getId(pEventId); // получим изменяемую сущность
         event.setUpdated(pUpdated); // установим время изменения
