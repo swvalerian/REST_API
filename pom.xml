@@ -85,6 +85,12 @@
             <version>2.12.4</version>
         </dependency>
 
+<!--        зависимость для того, чтоб хероку автоматом запускал миграцию, из оф. доки хероку-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>7.9.1</version>
+        </dependency>
     </dependencies>
 
     <build>
