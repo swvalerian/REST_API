@@ -1,5 +1,5 @@
 create table Files (
-    id int PRIMARY KEY Auto_increment,
+    id int PRIMARY KEY auto_increment,
     ref varchar(256) not null
 );
 -- ,
