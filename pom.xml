@@ -114,7 +114,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.9.1</version>
                 <configuration>
-                    <url>jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_5a16fc2bcdd68f4?reconnect=true</url>
+                    <url>jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_5a16fc2bcdd68f4</url>
                     <user>b8917620d40e06</user>
                     <password>8d267570</password>
 <!--                    <url>jdbc:mysql://localhost:3306/swvalerian</url>-->

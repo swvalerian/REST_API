@@ -5,7 +5,7 @@
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
-        <property name="connection.url">jdbc:mysql://eu-cdbr-west-01.cleardb.com</property>
+        <property name="connection.url">jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_5a16fc2bcdd68f4</property>
         <property name="connection.username">b8917620d40e06</property>
         <property name="connection.password">8d267570</property>
 <!--        <property name="connection.url">jdbc:mysql://localhost:3306/swvalerian</property>-->
