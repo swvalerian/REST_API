@@ -153,7 +153,6 @@ public class FileServlets extends HttpServlet {
         Event event = eventRepository.getAll().stream().filter(f -> f.getFile().getId().equals(fileDeleteId)).findFirst().orElse(null);
         //и просто пометить, что он удален
         event.setDeleted(deleteTime);
-        event.setFile(null);
         //обновим информацию в БАЗЕ ДАННЫХ.
         List<Event> eventList = eventRepository.update(event);
 
